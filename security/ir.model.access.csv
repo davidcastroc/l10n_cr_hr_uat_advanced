@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cr_retroactive_manager,cr.payroll.retroactive.manager,model_cr_payroll_retroactive_adjustment,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_cr_retroactive_line_manager,cr.payroll.retroactive.line.manager,model_cr_payroll_retroactive_adjustment_line,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_cr_late_event_manager,cr.payroll.late.event.manager,model_cr_payroll_late_event,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_cr_term_agreement_line_manager,cr.payroll.termination.agreement.line.manager,model_cr_payroll_termination_agreement_line,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_cr_shift_analysis_manager,cr.payroll.shift.analysis.manager,model_cr_payroll_shift_analysis,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_cr_shift_analysis_line_manager,cr.payroll.shift.analysis.line.manager,model_cr_payroll_shift_analysis_line,hr_payroll.group_hr_payroll_manager,1,1,1,1

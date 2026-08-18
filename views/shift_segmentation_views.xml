@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cr_shift_analysis_list" model="ir.ui.view">
+        <field name="name">cr.payroll.shift.analysis.list</field>
+        <field name="model">cr.payroll.shift.analysis</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="date_start"/>
+                <field name="employee_id"/>
+                <field name="date_stop"/>
+                <field name="total_paid_hours"/>
+                <field name="total_overtime_hours"/>
+                <field name="payroll_additional_total"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_cr_shift_analysis_form" model="ir.ui.view">
+        <field name="name">cr.payroll.shift.analysis.form</field>
+        <field name="model">cr.payroll.shift.analysis</field>
+        <field name="arch" type="xml">
+            <form string="Segmentación avanzada de jornada">
+                <header>
+                    <button name="action_calculate" type="object" string="Calcular segmentos" class="btn-primary" invisible="state not in ('draft','calculated')"/>
+                    <button name="action_approve" type="object" string="Aprobar" class="btn-primary" invisible="state != 'calculated'"/>
+                    <button name="action_generate_incidents" type="object" string="Generar incidencias" class="btn-primary" invisible="state != 'approved'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="contract_id"/>
+                            <field name="attendance_id"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_stop"/>
+                            <field name="break_start"/>
+                            <field name="break_stop"/>
+                            <field name="ordinary_paid_hours_limit"/>
+                        </group>
+                    </group>
+                    <group string="Totales">
+                        <field name="total_presence_hours" readonly="1"/>
+                        <field name="total_paid_hours" readonly="1"/>
+                        <field name="total_ordinary_hours" readonly="1"/>
+                        <field name="total_overtime_hours" readonly="1"/>
+                        <field name="payroll_additional_total" readonly="1"/>
+                    </group>
+                    <field name="line_ids" nolabel="1">
+                        <list>
+                            <field name="date_start"/>
+                            <field name="date_stop"/>
+                            <field name="classification"/>
+                            <field name="presence_hours"/>
+                            <field name="paid_hours"/>
+                            <field name="is_holiday"/>
+                            <field name="hour_rate"/>
+                            <field name="multiplier"/>
+                            <field name="payroll_additional"/>
+                        </list>
+                    </field>
+                    <field name="reason"/>
+                    <field name="attachment_ids" widget="many2many_binary"/>
+                    <group>
+                        <field name="approved_by_id" readonly="1"/>
+                        <field name="approved_at" readonly="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="action_cr_shift_analysis" model="ir.actions.act_window">
+        <field name="name">Jornadas avanzadas</field>
+        <field name="res_model">cr.payroll.shift.analysis</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

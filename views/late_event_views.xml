@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cr_late_event_list" model="ir.ui.view">
+        <field name="name">cr.payroll.late.event.list</field>
+        <field name="model">cr.payroll.late.event</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="registered_date"/>
+                <field name="employee_id"/>
+                <field name="event_type"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="document_number"/>
+                <field name="restored_vacation_days"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_cr_late_event_form" model="ir.ui.view">
+        <field name="name">cr.payroll.late.event.form</field>
+        <field name="model">cr.payroll.late.event</field>
+        <field name="arch" type="xml">
+            <form string="Evento tardío de nómina">
+                <header>
+                    <button name="action_review" type="object" string="Enviar a revisión" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_apply" type="object" string="Aplicar evento" class="btn-primary" invisible="state != 'review'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="contract_id"/>
+                            <field name="event_type"/>
+                            <field name="leave_type_id"/>
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="registered_date"/>
+                            <field name="adjustment_date"/>
+                            <field name="document_number"/>
+                        </group>
+                    </group>
+                    <field name="attachment_ids" widget="many2many_binary"/>
+                    <field name="notes"/>
+                    <group string="Resultado">
+                        <field name="generated_leave_id" readonly="1"/>
+                        <field name="restored_vacation_days" readonly="1"/>
+                        <field name="affected_closed_payslip_ids" widget="many2many_tags" readonly="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="action_cr_late_event" model="ir.actions.act_window">
+        <field name="name">Eventos tardíos</field>
+        <field name="res_model">cr.payroll.late.event</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

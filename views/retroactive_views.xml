@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cr_retroactive_list" model="ir.ui.view">
+        <field name="name">cr.payroll.retroactive.adjustment.list</field>
+        <field name="model">cr.payroll.retroactive.adjustment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="target_date"/>
+                <field name="employee_id"/>
+                <field name="origin_date_from"/>
+                <field name="origin_date_to"/>
+                <field name="old_wage"/>
+                <field name="new_wage"/>
+                <field name="amount_total"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_cr_retroactive_form" model="ir.ui.view">
+        <field name="name">cr.payroll.retroactive.adjustment.form</field>
+        <field name="model">cr.payroll.retroactive.adjustment</field>
+        <field name="arch" type="xml">
+            <form string="Ajuste retroactivo">
+                <header>
+                    <button name="action_calculate" type="object" string="Calcular diferencias" class="btn-primary" invisible="state not in ('draft','calculated')"/>
+                    <button name="action_approve" type="object" string="Aprobar" class="btn-primary" invisible="state != 'calculated'"/>
+                    <button name="action_generate_complementary" type="object" string="Generar complementaria" class="btn-primary" invisible="state != 'approved'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="contract_id"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="origin_date_from"/>
+                            <field name="origin_date_to"/>
+                            <field name="target_date"/>
+                        </group>
+                    </group>
+                    <group string="Cambio salarial">
+                        <field name="old_wage"/>
+                        <field name="new_wage"/>
+                        <field name="amount_total" readonly="1"/>
+                    </group>
+                    <field name="reason" placeholder="Motivo y respaldo del cambio retroactivo..."/>
+                    <field name="attachment_ids" widget="many2many_binary"/>
+                    <notebook>
+                        <page string="Diferencias por concepto">
+                            <field name="line_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="include"/>
+                                    <field name="origin_period" readonly="1"/>
+                                    <field name="payslip_id" readonly="1"/>
+                                    <field name="salary_rule_code" readonly="1"/>
+                                    <field name="concept_name" readonly="1"/>
+                                    <field name="original_amount" readonly="1"/>
+                                    <field name="recalculated_amount"/>
+                                    <field name="difference" readonly="1"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Auditoría">
+                            <group>
+                                <field name="approved_by_id" readonly="1"/>
+                                <field name="approved_at" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="action_cr_retroactive" model="ir.actions.act_window">
+        <field name="name">Retroactivos / Complementarias</field>
+        <field name="res_model">cr.payroll.retroactive.adjustment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

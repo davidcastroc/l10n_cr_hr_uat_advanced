@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cr_termination_form_advanced" model="ir.ui.view">
+        <field name="name">cr.payroll.termination.form.advanced</field>
+        <field name="model">cr.payroll.termination</field>
+        <field name="inherit_id" ref="l10n_cr_hr.view_cr_termination_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_freeze_legal_reference" type="object" string="Congelar referencia legal" class="btn-secondary" invisible="reference_locked"/>
+                <button name="action_approve_agreement" type="object" string="Aprobar acuerdo" class="btn-primary" invisible="agreement_state != 'draft'"/>
+                <button name="action_reverse_agreement" type="object" string="Revertir acuerdo" invisible="agreement_state != 'approved'"/>
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Referencia vs acuerdo">
+                        <group>
+                            <group>
+                                <field name="reference_locked" readonly="1"/>
+                                <field name="reference_locked_by_id" readonly="1"/>
+                                <field name="reference_locked_at" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="agreement_state" readonly="1"/>
+                                <field name="agreement_total" readonly="1"/>
+                                <field name="agreement_difference" readonly="1"/>
+                            </group>
+                        </group>
+                        <field name="agreement_line_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="name" readonly="1"/>
+                                <field name="reference_amount" readonly="1"/>
+                                <field name="agreed_amount"/>
+                                <field name="difference" readonly="1"/>
+                                <field name="reason"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <field name="name" readonly="1"/>
+                                    <field name="reference_amount" readonly="1"/>
+                                    <field name="agreed_amount"/>
+                                    <field name="difference" readonly="1"/>
+                                    <field name="reason"/>
+                                    <field name="attachment_ids" widget="many2many_binary"/>
+                                </group>
+                            </form>
+                        </field>
+                        <field name="agreement_attachment_ids" widget="many2many_binary"/>
+                    </page>
+                    <page string="Préstamo / CxC">
+                        <group>
+                            <field name="loan_balance_before"/>
+                            <field name="loan_deduction_agreed"/>
+                            <field name="loan_residual_receivable" readonly="1"/>
+                            <field name="residual_receivable_move_id" readonly="1"/>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

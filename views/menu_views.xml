@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_cr_uat_advanced_root"
+              name="Procesos avanzados"
+              parent="l10n_cr_hr.menu_cr_configuration_root"
+              sequence="15"
+              groups="hr_payroll.group_hr_payroll_manager"/>
+    <menuitem id="menu_cr_retroactive"
+              name="Retroactivos / Complementarias"
+              parent="menu_cr_uat_advanced_root"
+              action="action_cr_retroactive"
+              sequence="10"/>
+    <menuitem id="menu_cr_late_event"
+              name="Eventos tardíos"
+              parent="menu_cr_uat_advanced_root"
+              action="action_cr_late_event"
+              sequence="20"/>
+    <menuitem id="menu_cr_shift_analysis"
+              name="Jornadas avanzadas"
+              parent="menu_cr_uat_advanced_root"
+              action="action_cr_shift_analysis"
+              sequence="30"/>
+</odoo>
